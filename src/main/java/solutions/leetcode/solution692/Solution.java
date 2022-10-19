@@ -3,6 +3,7 @@ package solutions.leetcode.solution692;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Solution {
@@ -11,13 +12,17 @@ public class Solution {
         for (int i = 0; i < words.length; i++)
             wordFrequencyMap.put(words[i], wordFrequencyMap.getOrDefault(words[i], 0) + 1);
 
-
-        List<String> result = wordFrequencyMap.entrySet().stream().
-                map(entry->new WordFrequency(entry.getKey(), entry.getValue())).
-                sorted().
-                limit(k).
-                map(WordFrequency::getWord)
+        List<String> result = wordFrequencyMap.entrySet().stream()
+                .sorted((x, y) -> x.getValue().equals(y.getValue()) ? x.getKey().compareTo(y.getKey()) : y.getValue().compareTo(x.getValue()))
+                .limit(k)
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+//        List<String> result = wordFrequencyMap.entrySet().stream().
+//                map(entry->new WordFrequency(entry.getKey(), entry.getValue())).
+//                sorted().
+//                limit(k).
+//                map(WordFrequency::getWord)
+//                .collect(Collectors.toList());
 
         return result;
     }
