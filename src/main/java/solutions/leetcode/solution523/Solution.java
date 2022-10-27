@@ -9,6 +9,7 @@ public class Solution {
         int currentModulo = 0;
         for (int i = 0; i < nums.length; i++) {
             currentModulo = (currentModulo + nums[i] % k) % k;
+
             if (moduloMap.containsKey(currentModulo)) {
                 if (moduloMap.get(currentModulo) < i)
                     return true;
