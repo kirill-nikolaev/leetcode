@@ -12,8 +12,15 @@ class SolutionTest {
         assertEquals("leetcode", solution.makeGood("leEeetcode"));
     }
 
+    @Test
     void Test2() {
         Solution solution = new Solution();
         assertEquals("", solution.makeGood("abBAcC"));
+    }
+
+    @Test
+    void Test3() {
+        Solution solution = new Solution();
+        assertEquals("", solution.makeGood("Pp"));
     }
 }
