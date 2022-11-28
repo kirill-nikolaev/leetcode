@@ -1,14 +1,12 @@
 package solutions.leetcode.solution2225;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Solution {
     public List<List<Integer>> findWinners(int[][] matches) {
         List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        result.add(new ArrayList<>());
 
         HashMap<Integer, Integer> hashMap = new HashMap<>();
 
@@ -18,20 +16,15 @@ public class Solution {
             hashMap.put(matches[i][1], hashMap.getOrDefault(matches[i][1], 0) + 1);
         }
 
-        List<Integer> noLoseList = hashMap.entrySet().stream()
-                .filter(x -> x.getValue() == 0)
-                .map(Map.Entry::getKey)
-                .sorted()
-                .collect(Collectors.toList());
+        for(Map.Entry<Integer, Integer> mapEntry: hashMap.entrySet()) {
+            if (mapEntry.getValue() == 0)
+                result.get(0).add(mapEntry.getKey());
+            else if (mapEntry.getValue() == 1)
+                result.get(1).add(mapEntry.getKey());
+        }
 
-        List<Integer> oneLoseList = hashMap.entrySet().stream()
-                .filter(x -> x.getValue() == 1)
-                .map(Map.Entry::getKey)
-                .sorted()
-                .collect(Collectors.toList());
-
-        result.add(noLoseList);
-        result.add(oneLoseList);
+        result.get(0).sort(Comparator.naturalOrder());
+        result.get(1).sort(Comparator.naturalOrder());
 
         return result;
     }
